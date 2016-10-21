@@ -1,14 +1,31 @@
 // @flow
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
-import { logout } from '../../actions/session';
+import { css, StyleSheet } from 'aphrodite';
+import { fetchRooms, createRoom, joinRoom } from '../../actions/rooms';
+import NewRoomForm from '../../components/NewRoomForm';
 import Navbar from '../../components/Navbar';
+import RoomListItem from '../../components/RoomListItem';
+
+const styles = StyleSheet.create({
+  card: {
+    maxWidth: '500px',
+    padding: '3rem 4rem',
+    margin: '2rem auto',
+  },
+});
+
+type Room = {
+  id: number,
+  name: string,
+}
 
 type Props = {
-  logout: () => void,
-  currentUser: Object,
-  isAuthenticated: boolean,
+  rooms: Array<Room>,
+  currentUserRooms: Array<Room>,
+  fetchRooms: () => void,
+  createRoom: () => void,
+  joinRoom: () => void,
 }
 
 class Home extends Component {
@@ -16,26 +33,42 @@ class Home extends Component {
     router: PropTypes.object,
   }
 
+  componentDidMount() {
+    this.props.fetchRooms();
+  }
+
   props: Props
 
-  handleLogout = () => this.props.logout(this.context.router);
+  handleNewRoomSubmit = data => this.props.createRoom(data, this.context.router);
+
+  handleRoomJoin = roomId => this.props.joinRoom(roomId, this.context.router);
+
+  renderRooms() {
+    const currentUserRoomIds = [];
+    this.props.currentUserRooms.map(room => currentUserRoomIds.push(room.id));
+
+    return this.props.rooms.map(room =>
+      <RoomListItem
+        key={room.id}
+        room={room}
+        onRoomJoin={this.handleRoomJoin}
+        currentUserRoomIds={currentUserRoomIds}
+      />
+    );
+  }
 
   render() {
-    const { currentUser, isAuthenticated } = this.props;
-
     return (
       <div style={{ flex: '1' }}>
         <Navbar />
-        <ul>
-          <li><Link to="/login">Login</Link></li>
-          <li><Link to="/signup">Signup</Link></li>
-        </ul>
-        {isAuthenticated &&
-          <div>
-            <span>{currentUser.username}</span>
-            <button type="button" onClick={this.handleLogout}>Logout</button>
-          </div>
-        }
+        <div className={`card ${css(styles.card)}`}>
+          <h3 style={{ marginBottom: '2rem', textAlign: 'center' }}>Create a new room</h3>
+          <NewRoomForm onSubmit={this.handleNewRoomSubmit} />
+        </div>
+        <div className={`card ${css(styles.card)}`}>
+          <h3 style={{ marginBottom: '2rem', textAlign: 'center' }}>Join a room</h3>
+          {this.renderRooms()}
+        </div>
       </div>
     );
   }
@@ -43,8 +76,8 @@ class Home extends Component {
 
 export default connect(
   state => ({
-    isAuthenticated: state.session.isAuthenticated,
-    currentUser: state.session.currentUser,
+    rooms: state.rooms.all,
+    currentUserRooms: state.rooms.currentUserRooms,
   }),
-  { logout }
+  { fetchRooms, createRoom, joinRoom }
 )(Home);
