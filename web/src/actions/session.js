@@ -32,3 +32,14 @@ export function logout(router) {
       router.transitionTo('/login');
     });
 }
+
+export function authenticate() {
+  return dispatch => api.post('/sessions/refresh')
+    .then((response) => {
+      setCurrentUser(dispatch, response);
+    })
+    .catch(() => {
+      localStorage.removeItem('token');
+      window.location = '/login';
+    });
+}
