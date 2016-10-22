@@ -57,6 +57,11 @@ export default function (state = initialState, action) {
         ...state,
         loadingOlderMessages: false,
       };
+    case 'UPDATE_ROOM_SUCCESS':
+      return {
+        ...state,
+        currentRoom: action.response.data,
+      };
     default:
       return state;
   }

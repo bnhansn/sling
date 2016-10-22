@@ -68,3 +68,10 @@ export function loadOlderMessages(roomId, params) {
       });
   };
 }
+
+export function updateRoom(roomId, data) {
+  return dispatch => api.patch(`/rooms/${roomId}`, data)
+    .then((response) => {
+      dispatch({ type: 'UPDATE_ROOM_SUCCESS', response });
+    });
+}

@@ -1,11 +1,17 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { connectToChannel, leaveChannel, createMessage, loadOlderMessages } from '../../actions/room';
 import MessageList from '../../components/MessageList';
 import MessageForm from '../../components/MessageForm';
 import RoomNavbar from '../../components/RoomNavbar';
 import RoomSidebar from '../../components/RoomSidebar';
+import {
+  connectToChannel,
+  leaveChannel,
+  createMessage,
+  loadOlderMessages,
+  updateRoom,
+} from '../../actions/room';
 
 type MessageType = {
   id: number,
@@ -32,6 +38,7 @@ type Props = {
     page_number: number,
   },
   loadOlderMessages: () => void,
+  updateRoom: () => void,
 }
 
 class Room extends Component {
@@ -66,6 +73,8 @@ class Room extends Component {
     this.messageList.scrollToBottom();
   }
 
+  handleTopicUpdate = data => this.props.updateRoom(this.props.params.id, data);
+
   render() {
     const moreMessages = this.props.pagination.total_pages > this.props.pagination.page_number;
 
@@ -77,7 +86,7 @@ class Room extends Component {
           presentUsers={this.props.presentUsers}
         />
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <RoomNavbar room={this.props.room} />
+          <RoomNavbar room={this.props.room} onTopicUpdate={this.handleTopicUpdate} />
           <MessageList
             moreMessages={moreMessages}
             messages={this.props.messages}
@@ -103,5 +112,5 @@ export default connect(
     pagination: state.room.pagination,
     loadingOlderMessages: state.room.loadingOlderMessages,
   }),
-  { connectToChannel, leaveChannel, createMessage, loadOlderMessages }
+  { connectToChannel, leaveChannel, createMessage, loadOlderMessages, updateRoom }
 )(Room);
