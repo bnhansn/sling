@@ -10,7 +10,6 @@ function connectToSocket(dispatch) {
   const token = JSON.parse(localStorage.getItem('token'));
   const socket = new Socket(`${WEBSOCKET_URL}/socket`, {
     params: { token },
-    logger: (kind, msg, data) => { console.log(`${kind}: ${msg}`, data); }
   });
   socket.connect();
   dispatch({ type: 'SOCKET_CONNECTED', socket });
