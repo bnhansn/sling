@@ -4,6 +4,7 @@ import moment from 'moment';
 import groupBy from 'lodash/groupBy';
 import mapKeys from 'lodash/mapKeys';
 import { css, StyleSheet } from 'aphrodite';
+import debounce from 'lodash/debounce';
 import Message from '../Message';
 
 const styles = StyleSheet.create({
@@ -44,10 +45,49 @@ type MessageType = {
 
 type Props = {
   messages: Array<MessageType>,
+  onLoadMore: () => void,
+  loadingOlderMessages: boolean,
+  moreMessages: boolean,
 }
 
 class MessageList extends Component {
+  constructor(props) {
+    super(props);
+    this.handleScroll = debounce(this.handleScroll, 200);
+  }
+
+  componentDidMount() {
+    this.container.addEventListener('scroll', this.handleScroll);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.messages.length !== this.props.messages.length) {
+      this.maybeScrollToBottom();
+    }
+  }
+
+  componentWillUnmount() {
+    this.container.removeEventListener('scroll', this.handleScroll);
+  }
+
   props: Props
+
+  maybeScrollToBottom = () => {
+    if (this.container.scrollHeight - this.container.scrollTop <
+        this.container.clientHeight + 50) {
+      this.scrollToBottom();
+    }
+  }
+
+  scrollToBottom = () => {
+    setTimeout(() => { this.container.scrollTop = this.container.scrollHeight; });
+  }
+
+  handleScroll = () => {
+    if (this.props.moreMessages && this.container.scrollTop < 20) {
+      this.props.onLoadMore();
+    }
+  }
 
   renderMessages = messages =>
     messages.map(message => <Message key={message.id} message={message} />);
@@ -78,7 +118,18 @@ class MessageList extends Component {
 
   render() {
     return (
-      <div className={css(styles.container)}>
+      <div className={css(styles.container)} ref={(c) => { this.container = c; }}>
+        {this.props.moreMessages &&
+          <div style={{ textAlign: 'center' }}>
+            <button
+              className="btn btn-link btn-sm"
+              onClick={this.props.onLoadMore}
+              disabled={this.props.loadingOlderMessages}
+            >
+              {this.props.loadingOlderMessages ? 'Loading' : 'Load more'}
+            </button>
+          </div>
+        }
         {this.renderDays()}
       </div>
     );

@@ -1,5 +1,6 @@
 import { reset } from 'redux-form';
 import { Presence } from 'phoenix';
+import api from '../api';
 
 const syncPresentUsers = (dispatch, presences) => {
   const presentUsers = [];
@@ -53,4 +54,17 @@ export function createMessage(channel, data) {
       ))
       .receive('error', () => reject());
   });
+}
+
+export function loadOlderMessages(roomId, params) {
+  return (dispatch) => {
+    dispatch({ type: 'FETCH_MESSAGES_REQUEST' });
+    return api.fetch(`/rooms/${roomId}/messages`, params)
+      .then((response) => {
+        dispatch({ type: 'FETCH_MESSAGES_SUCCESS', response });
+      })
+      .catch(() => {
+        dispatch({ type: 'FETCH_MESSAGES_FAILURE' });
+      });
+  };
 }
