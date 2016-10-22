@@ -8,12 +8,9 @@ defmodule Sling do
 
     # Define workers and child supervisors to be supervised
     children = [
-      # Start the Ecto repository
       supervisor(Sling.Repo, []),
-      # Start the endpoint when the application starts
       supervisor(Sling.Endpoint, []),
-      # Start your own worker by calling: Sling.Worker.start_link(arg1, arg2, arg3)
-      # worker(Sling.Worker, [arg1, arg2, arg3]),
+      supervisor(Sling.Presence, []),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

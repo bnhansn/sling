@@ -2,6 +2,7 @@ const initialState = {
   channel: null,
   currentRoom: {},
   messages: [],
+  presentUsers: [],
 };
 
 export default function (state = initialState, action) {
@@ -22,6 +23,11 @@ export default function (state = initialState, action) {
           ...state.messages,
           action.message,
         ],
+      };
+    case 'ROOM_PRESENCE_UPDATE':
+      return {
+        ...state,
+        presentUsers: action.presentUsers,
       };
     default:
       return state;

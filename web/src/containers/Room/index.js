@@ -5,6 +5,7 @@ import { connectToChannel, leaveChannel, createMessage } from '../../actions/roo
 import MessageList from '../../components/MessageList';
 import MessageForm from '../../components/MessageForm';
 import RoomNavbar from '../../components/RoomNavbar';
+import RoomSidebar from '../../components/RoomSidebar';
 
 type MessageType = {
   id: number,
@@ -21,6 +22,8 @@ type Props = {
   leaveChannel: () => void,
   createMessage: () => void,
   messages: Array<MessageType>,
+  presentUsers: Array,
+  currentUser: Object,
 }
 
 class Room extends Component {
@@ -51,6 +54,11 @@ class Room extends Component {
   render() {
     return (
       <div style={{ display: 'flex', height: '100vh' }}>
+        <RoomSidebar
+          room={this.props.room}
+          currentUser={this.props.currentUser}
+          presentUsers={this.props.presentUsers}
+        />
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <RoomNavbar room={this.props.room} />
           <MessageList messages={this.props.messages} />
@@ -67,6 +75,8 @@ export default connect(
     socket: state.session.socket,
     channel: state.room.channel,
     messages: state.room.messages,
+    presentUsers: state.room.presentUsers,
+    currentUser: state.session.currentUser,
   }),
   { connectToChannel, leaveChannel, createMessage }
 )(Room);
