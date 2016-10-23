@@ -7,6 +7,7 @@ import Navbar from '../../components/Navbar';
 
 type Props = {
   signup: () => void,
+  errors: Array,
 }
 
 class Signup extends Component {
@@ -22,10 +23,15 @@ class Signup extends Component {
     return (
       <div style={{ flex: '1' }}>
         <Navbar />
-        <SignupForm onSubmit={this.handleSignup} />
+        <SignupForm onSubmit={this.handleSignup} errors={this.props.errors} />
       </div>
     );
   }
 }
 
-export default connect(null, { signup })(Signup);
+export default connect(
+  state => ({
+    errors: state.session.signupErrors,
+  }),
+  { signup }
+)(Signup);

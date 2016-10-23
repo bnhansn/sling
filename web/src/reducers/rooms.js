@@ -1,6 +1,7 @@
 const initialState = {
   all: [],
   currentUserRooms: [],
+  newRoomErrors: [],
 };
 
 export default function (state = initialState, action) {
@@ -26,6 +27,12 @@ export default function (state = initialState, action) {
           ...state.currentUserRooms,
           action.response.data,
         ],
+        newRoomErrors: [],
+      };
+    case 'CREATE_ROOM_FAILURE':
+      return {
+        ...state,
+        newRoomErrors: action.error.errors,
       };
     case 'ROOM_JOINED':
       return {

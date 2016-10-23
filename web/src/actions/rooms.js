@@ -19,6 +19,9 @@ export function createRoom(data, router) {
     .then((response) => {
       dispatch({ type: 'CREATE_ROOM_SUCCESS', response });
       router.transitionTo(`/r/${response.data.id}`);
+    })
+    .catch((error) => {
+      dispatch({ type: 'CREATE_ROOM_FAILURE', error });
     });
 }
 

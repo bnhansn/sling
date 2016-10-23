@@ -1,11 +1,13 @@
 // @flow
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
+import Errors from '../Errors';
 
 type Props = {
   handleSubmit: () => void,
   onSubmit: () => void,
   submitting: boolean,
+  errors: Array,
 }
 
 class NewRoomForm extends Component {
@@ -14,7 +16,7 @@ class NewRoomForm extends Component {
   handleSubmit = data => this.props.onSubmit(data);
 
   render() {
-    const { handleSubmit, submitting } = this.props;
+    const { handleSubmit, submitting, errors } = this.props;
 
     return (
       <form onSubmit={handleSubmit(this.handleSubmit)}>
@@ -32,6 +34,7 @@ class NewRoomForm extends Component {
             </button>
           </div>
         </div>
+        <Errors name="name" errors={errors} />
       </form>
     );
   }

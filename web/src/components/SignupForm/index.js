@@ -4,6 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router';
 import { css, StyleSheet } from 'aphrodite';
 import Input from '../Input';
+import Errors from '../Errors';
 
 const styles = StyleSheet.create({
   card: {
@@ -17,6 +18,7 @@ type Props = {
   onSubmit: () => void,
   submitting: boolean,
   handleSubmit: () => void,
+  errors: Array,
 }
 
 class SignupForm extends Component {
@@ -25,7 +27,7 @@ class SignupForm extends Component {
   handleSubmit = data => this.props.onSubmit(data);
 
   render() {
-    const { handleSubmit, submitting } = this.props;
+    const { errors, handleSubmit, submitting } = this.props;
 
     return (
       <form
@@ -33,27 +35,33 @@ class SignupForm extends Component {
         onSubmit={handleSubmit(this.handleSubmit)}
       >
         <h3 style={{ marginBottom: '2rem', textAlign: 'center' }}>Create an account</h3>
-        <Field
-          name="username"
-          type="text"
-          component={Input}
-          placeholder="Username"
-          className="form-control"
-        />
-        <Field
-          name="email"
-          type="email"
-          component={Input}
-          placeholder="Email"
-          className="form-control"
-        />
-        <Field
-          name="password"
-          type="password"
-          component={Input}
-          placeholder="Password"
-          className="form-control"
-        />
+        <div style={{ marginBottom: '1rem' }}>
+          <Field
+            name="username"
+            type="text"
+            component={Input}
+            placeholder="Username"
+          />
+          <Errors name="username" errors={errors} />
+        </div>
+        <div style={{ marginBottom: '1rem' }}>
+          <Field
+            name="email"
+            type="email"
+            component={Input}
+            placeholder="Email"
+          />
+          <Errors name="email" errors={errors} />
+        </div>
+        <div style={{ marginBottom: '1rem' }}>
+          <Field
+            name="password"
+            type="password"
+            component={Input}
+            placeholder="Password"
+          />
+          <Errors name="password" errors={errors} />
+        </div>
         <button
           type="submit"
           disabled={submitting}

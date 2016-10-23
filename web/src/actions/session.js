@@ -37,6 +37,9 @@ export function signup(data, router) {
       setCurrentUser(dispatch, response);
       dispatch(reset('signup'));
       router.transitionTo('/');
+    })
+    .catch((error) => {
+      dispatch({ type: 'SIGNUP_FAILURE', error });
     });
 }
 

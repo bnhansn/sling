@@ -26,6 +26,7 @@ type Props = {
   fetchRooms: () => void,
   createRoom: () => void,
   joinRoom: () => void,
+  newRoomErrors: Array,
 }
 
 class Home extends Component {
@@ -63,7 +64,7 @@ class Home extends Component {
         <Navbar />
         <div className={`card ${css(styles.card)}`}>
           <h3 style={{ marginBottom: '2rem', textAlign: 'center' }}>Create a new room</h3>
-          <NewRoomForm onSubmit={this.handleNewRoomSubmit} />
+          <NewRoomForm onSubmit={this.handleNewRoomSubmit} errors={this.props.newRoomErrors} />
         </div>
         <div className={`card ${css(styles.card)}`}>
           <h3 style={{ marginBottom: '2rem', textAlign: 'center' }}>Join a room</h3>
@@ -78,6 +79,7 @@ export default connect(
   state => ({
     rooms: state.rooms.all,
     currentUserRooms: state.rooms.currentUserRooms,
+    newRoomErrors: state.rooms.newRoomErrors,
   }),
   { fetchRooms, createRoom, joinRoom }
 )(Home);
