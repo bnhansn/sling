@@ -11,6 +11,7 @@ import MatchAuthenticated from '../../components/MatchAuthenticated';
 import RedirectAuthenticated from '../../components/RedirectAuthenticated';
 import Sidebar from '../../components/Sidebar';
 import Room from '../Room';
+import Alert from '../Alert';
 
 type RoomType = {
   id: number,
@@ -47,8 +48,9 @@ class App extends Component {
 
     return (
       <BrowserRouter>
-        {({ router }) => (
+        {({ router, location }) => (
           <div style={{ display: 'flex', flex: '1' }}>
+            <Alert pathname={location.pathname} />
             {isAuthenticated &&
               <Sidebar
                 router={router}

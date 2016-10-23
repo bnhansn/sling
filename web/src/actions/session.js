@@ -28,6 +28,9 @@ export function login(data, router) {
       setCurrentUser(dispatch, response);
       dispatch(reset('login'));
       router.transitionTo('/');
+    })
+    .catch(() => {
+      dispatch({ type: 'SHOW_ALERT', message: 'Invalid email or password' });
     });
 }
 
