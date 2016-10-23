@@ -7,6 +7,7 @@ type Props = {
   message: {
     text: string,
     inserted_at: string,
+    day?: string,
     user: {
       email: string,
       username: string,

@@ -74,7 +74,7 @@ const RoomSidebar = ({ room, currentUser, presentUsers }: Props) =>
     </div>
     <div className={css(styles.listHeading)}>Active Users</div>
     <ul className={css(styles.userList)}>
-      {presentUsers.map(user =>
+      {presentUsers.map((user) =>
         <li key={user.id} className={css(styles.username)}>{user.username}</li>
       )}
     </ul>

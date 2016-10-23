@@ -16,7 +16,7 @@ class Login extends Component {
 
   props: Props
 
-  handleLogin = data => this.props.login(data, this.context.router);
+  handleLogin = (data) => this.props.login(data, this.context.router);
 
   render() {
     return (

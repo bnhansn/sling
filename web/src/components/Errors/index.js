@@ -2,7 +2,7 @@
 import React from 'react';
 
 function renderErrors(errors, name) {
-  if (!errors[name]) return false;
+  if (!errors || !errors[name]) return false;
 
   return errors[name].map((error, i) =>
     <div key={i} style={{ fontSize: '85%', color: '#cc5454' }}>
@@ -13,7 +13,7 @@ function renderErrors(errors, name) {
 
 type Props = {
   name: string,
-  errors?: Array,
+  errors?: any,
 }
 
 const Errors = ({ errors, name }: Props) =>

@@ -12,13 +12,18 @@ import RedirectAuthenticated from '../../components/RedirectAuthenticated';
 import Sidebar from '../../components/Sidebar';
 import Room from '../Room';
 
+type RoomType = {
+  id: number,
+  name: string,
+}
+
 type Props = {
   authenticate: () => void,
   unauthenticate: () => void,
   isAuthenticated: boolean,
   willAuthenticate: boolean,
   logout: () => void,
-  currentUserRooms: Array,
+  currentUserRooms: Array<RoomType>,
 }
 
 class App extends Component {
@@ -34,7 +39,7 @@ class App extends Component {
 
   props: Props
 
-  handleLogout = router => this.props.logout(router);
+  handleLogout = (router) => this.props.logout(router);
 
   render() {
     const { isAuthenticated, willAuthenticate, currentUserRooms } = this.props;
@@ -64,7 +69,7 @@ class App extends Component {
 }
 
 export default connect(
-  state => ({
+  (state) => ({
     isAuthenticated: state.session.isAuthenticated,
     willAuthenticate: state.session.willAuthenticate,
     currentUserRooms: state.rooms.currentUserRooms,

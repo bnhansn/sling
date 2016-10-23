@@ -5,7 +5,7 @@ import api from '../api';
 const syncPresentUsers = (dispatch, presences) => {
   const presentUsers = [];
   Presence.list(presences, (id, { metas: [first] }) => first.user)
-          .map(user => presentUsers.push(user));
+          .map((user) => presentUsers.push(user));
   dispatch({ type: 'ROOM_PRESENCE_UPDATE', presentUsers });
 };
 
@@ -47,7 +47,7 @@ export function leaveChannel(channel) {
 }
 
 export function createMessage(channel, data) {
-  return dispatch => new Promise((resolve, reject) => {
+  return (dispatch) => new Promise((resolve, reject) => {
     channel.push('new_message', data)
       .receive('ok', () => resolve(
         dispatch(reset('newMessage'))
@@ -70,7 +70,7 @@ export function loadOlderMessages(roomId, params) {
 }
 
 export function updateRoom(roomId, data) {
-  return dispatch => api.patch(`/rooms/${roomId}`, data)
+  return (dispatch) => api.patch(`/rooms/${roomId}`, data)
     .then((response) => {
       dispatch({ type: 'UPDATE_ROOM_SUCCESS', response });
     });

@@ -7,7 +7,7 @@ type Props = {
   handleSubmit: () => void,
   onSubmit: () => void,
   submitting: boolean,
-  errors: Array,
+  errors: any,
 }
 
 class NewRoomForm extends Component {

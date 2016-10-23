@@ -41,6 +41,12 @@ const styles = StyleSheet.create({
 type MessageType = {
   id: number,
   inserted_at: string,
+  text: string,
+  day?: string,
+  user: {
+    username: string,
+    email: string,
+  }
 }
 
 type Props = {
@@ -51,7 +57,7 @@ type Props = {
 }
 
 class MessageList extends Component {
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
     this.handleScroll = debounce(this.handleScroll, 200);
   }
@@ -60,7 +66,7 @@ class MessageList extends Component {
     this.container.addEventListener('scroll', this.handleScroll);
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: Props) {
     if (nextProps.messages.length !== this.props.messages.length) {
       this.maybeScrollToBottom();
     }
@@ -71,6 +77,7 @@ class MessageList extends Component {
   }
 
   props: Props
+  container: () => void
 
   maybeScrollToBottom = () => {
     if (this.container.scrollHeight - this.container.scrollTop <
@@ -89,20 +96,25 @@ class MessageList extends Component {
     }
   }
 
-  renderMessages = messages =>
-    messages.map(message => <Message key={message.id} message={message} />);
+  renderMessages = (messages: Array<MessageType>) =>
+    messages.map((message) => <Message key={message.id} message={message} />);
 
   renderDays() {
-    const { messages } = this.props;
-    messages.map(message => message.day = moment(message.inserted_at).format('MMMM Do')); // eslint-disable-line
-    const dayGroups = groupBy(messages, 'day');
+    const messageList = [];
+    this.props.messages.map((message) => {
+      const messageData: MessageType = message;
+      messageData.day = moment(message.inserted_at).format('MMMM Do');
+      messageList.push(messageData);
+      return false;
+    });
+    const dayGroups = groupBy(messageList, 'day');
     const days = [];
     mapKeys(dayGroups, (value, key) => {
       days.push({ date: key, messages: value });
     });
     const today = moment().format('MMMM Do');
     const yesterday = moment().subtract(1, 'days').format('MMMM Do');
-    return days.map(day =>
+    return days.map((day) =>
       <div key={day.date}>
         <div className={css(styles.dayDivider)}>
           <span className={css(styles.dayText)}>

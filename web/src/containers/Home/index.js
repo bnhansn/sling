@@ -26,7 +26,7 @@ type Props = {
   fetchRooms: () => void,
   createRoom: () => void,
   joinRoom: () => void,
-  newRoomErrors: Array,
+  newRoomErrors: Array<string>,
 }
 
 class Home extends Component {
@@ -40,15 +40,15 @@ class Home extends Component {
 
   props: Props
 
-  handleNewRoomSubmit = data => this.props.createRoom(data, this.context.router);
+  handleNewRoomSubmit = (data) => this.props.createRoom(data, this.context.router);
 
-  handleRoomJoin = roomId => this.props.joinRoom(roomId, this.context.router);
+  handleRoomJoin = (roomId) => this.props.joinRoom(roomId, this.context.router);
 
   renderRooms() {
     const currentUserRoomIds = [];
-    this.props.currentUserRooms.map(room => currentUserRoomIds.push(room.id));
+    this.props.currentUserRooms.map((room) => currentUserRoomIds.push(room.id));
 
-    return this.props.rooms.map(room =>
+    return this.props.rooms.map((room) =>
       <RoomListItem
         key={room.id}
         room={room}
@@ -76,7 +76,7 @@ class Home extends Component {
 }
 
 export default connect(
-  state => ({
+  (state) => ({
     rooms: state.rooms.all,
     currentUserRooms: state.rooms.currentUserRooms,
     newRoomErrors: state.rooms.newRoomErrors,

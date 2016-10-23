@@ -18,7 +18,7 @@ type Props = {
   onSubmit: () => void,
   submitting: boolean,
   handleSubmit: () => void,
-  errors: Array,
+  errors: any,
 }
 
 class SignupForm extends Component {

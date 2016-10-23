@@ -82,7 +82,7 @@ type Props = {
 
 const Sidebar = ({ rooms, router, onLogoutClick }: Props) =>
   <div className={css(styles.sidebar)}>
-    {rooms.map(room => <RoomLink key={room.id} room={room} />)}
+    {rooms.map((room) => <RoomLink key={room.id} room={room} />)}
     <Link
       to="/"
       activeOnlyWhenExact

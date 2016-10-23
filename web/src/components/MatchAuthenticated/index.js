@@ -3,9 +3,9 @@ import React from 'react';
 import { Match, Redirect } from 'react-router';
 
 type Props = {
-  component: any,
   pattern: string,
-  exactly?: boolean,
+  exactly?: any,
+  component: any,
   isAuthenticated: boolean,
   willAuthenticate: boolean,
 }

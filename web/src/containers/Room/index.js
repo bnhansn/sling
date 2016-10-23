@@ -15,6 +15,13 @@ import {
 
 type MessageType = {
   id: number,
+  inserted_at: string,
+  text: string,
+  day?: string,
+  user: {
+    username: string,
+    email: string,
+  }
 }
 
 type Props = {
@@ -28,7 +35,7 @@ type Props = {
   leaveChannel: () => void,
   createMessage: () => void,
   messages: Array<MessageType>,
-  presentUsers: Array,
+  presentUsers: Array<any>,
   currentUser: Object,
   loadingOlderMessages: boolean,
   pagination: {
@@ -61,6 +68,7 @@ class Room extends Component {
   }
 
   props: Props
+  messageList: () => void
 
   handleLoadMore = () =>
     this.props.loadOlderMessages(
@@ -73,7 +81,7 @@ class Room extends Component {
     this.messageList.scrollToBottom();
   }
 
-  handleTopicUpdate = data => this.props.updateRoom(this.props.params.id, data);
+  handleTopicUpdate = (data) => this.props.updateRoom(this.props.params.id, data);
 
   render() {
     const moreMessages = this.props.pagination.total_pages > this.props.pagination.page_number;
@@ -102,7 +110,7 @@ class Room extends Component {
 }
 
 export default connect(
-  state => ({
+  (state) => ({
     room: state.room.currentRoom,
     socket: state.session.socket,
     channel: state.room.channel,

@@ -44,7 +44,7 @@ type Props = {
 }
 
 class RoomNavbar extends Component {
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
     this.state = {
       editingTopic: false,
@@ -53,7 +53,7 @@ class RoomNavbar extends Component {
 
   state: State
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: Props) {
     if (nextProps.room.id !== this.props.room.id ||
         nextProps.room.topic !== this.props.room.topic) {
       this.setState({ editingTopic: false });
@@ -62,7 +62,7 @@ class RoomNavbar extends Component {
 
   props: Props
 
-  handleTopicUpdate = data => this.props.onTopicUpdate(data);
+  handleTopicUpdate = (data: { topic: string }) => this.props.onTopicUpdate(data);
 
   render() {
     const { room } = this.props;
