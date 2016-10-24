@@ -22,7 +22,10 @@ class Login extends Component {
     return (
       <div style={{ flex: '1' }}>
         <Navbar />
-        <LoginForm onSubmit={this.handleLogin} />
+        <LoginForm
+          onSubmit={this.handleLogin}
+          initialValues={{ email: 'anon@test.com', password: 'password' }}
+        />
       </div>
     );
   }
