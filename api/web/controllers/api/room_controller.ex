@@ -5,9 +5,13 @@ defmodule Sling.RoomController do
 
   plug Guardian.Plug.EnsureAuthenticated, handler: Sling.SessionController
 
-  def index(conn, _params) do
-    rooms = Repo.all(Room)
-    render(conn, "index.json", rooms: rooms)
+  def index(conn, params) do
+    page =
+      Sling.Room
+      |> order_by([asc: :id])
+      |> Sling.Repo.paginate(params)
+
+    render(conn, "index.json", page: page)
   end
 
   def create(conn, params) do

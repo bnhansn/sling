@@ -1,7 +1,7 @@
 import api from '../api';
 
-export function fetchRooms() {
-  return (dispatch) => api.fetch('/rooms')
+export function fetchRooms(params) {
+  return (dispatch) => api.fetch('/rooms', params)
     .then((response) => {
       dispatch({ type: 'FETCH_ROOMS_SUCCESS', response });
     });

@@ -2,6 +2,12 @@ const initialState = {
   all: [],
   currentUserRooms: [],
   newRoomErrors: [],
+  pagination: {
+    total_pages: 0,
+    total_entries: 0,
+    page_size: 0,
+    page_number: 0,
+  },
 };
 
 export default function (state = initialState, action) {
@@ -10,6 +16,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         all: action.response.data,
+        pagination: action.response.pagination,
       };
     case 'FETCH_USER_ROOMS_SUCCESS':
       return {
