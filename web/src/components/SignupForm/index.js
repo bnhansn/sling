@@ -24,7 +24,7 @@ type Props = {
 class SignupForm extends Component {
   props: Props
 
-  handleSubmit = data => this.props.onSubmit(data);
+  handleSubmit = (data) => this.props.onSubmit(data);
 
   render() {
     const { errors, handleSubmit, submitting } = this.props;

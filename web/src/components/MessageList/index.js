@@ -6,6 +6,7 @@ import mapKeys from 'lodash/mapKeys';
 import { css, StyleSheet } from 'aphrodite';
 import debounce from 'lodash/debounce';
 import Message from '../Message';
+import { Message as MessageType } from '../../types';
 
 const styles = StyleSheet.create({
   container: {
@@ -37,17 +38,6 @@ const styles = StyleSheet.create({
     padding: '0 12px',
   },
 });
-
-type MessageType = {
-  id: number,
-  inserted_at: string,
-  text: string,
-  day?: string,
-  user: {
-    username: string,
-    email: string,
-  }
-}
 
 type Props = {
   messages: Array<MessageType>,

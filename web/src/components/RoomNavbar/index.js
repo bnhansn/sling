@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { css, StyleSheet } from 'aphrodite';
 import TopicForm from '../TopicForm';
+import { Room } from '../../types';
 
 const styles = StyleSheet.create({
   navbar: {
@@ -35,11 +36,7 @@ type State = {
 }
 
 type Props = {
-  room: {
-    id: number,
-    name: string,
-    topic?: string,
-  },
+  room: Room,
   onTopicUpdate: () => void,
 }
 

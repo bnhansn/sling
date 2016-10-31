@@ -12,17 +12,7 @@ import {
   loadOlderMessages,
   updateRoom,
 } from '../../actions/room';
-
-type MessageType = {
-  id: number,
-  inserted_at: string,
-  text: string,
-  day?: string,
-  user: {
-    username: string,
-    email: string,
-  }
-}
+import { Message, Pagination, User } from '../../types';
 
 type Props = {
   socket: any,
@@ -34,16 +24,11 @@ type Props = {
   connectToChannel: () => void,
   leaveChannel: () => void,
   createMessage: () => void,
-  messages: Array<MessageType>,
-  presentUsers: Array<any>,
+  messages: Array<Message>,
+  presentUsers: Array<User>,
   currentUser: Object,
   loadingOlderMessages: boolean,
-  pagination: {
-    total_pages: number,
-    total_entries: number,
-    page_size: number,
-    page_number: number,
-  },
+  pagination: Pagination,
   loadOlderMessages: () => void,
   updateRoom: () => void,
 }

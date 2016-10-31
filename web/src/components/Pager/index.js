@@ -1,18 +1,17 @@
+// @flow
 import React, { Component } from 'react';
 import PagerButton from '../PagerButton';
+import { Pagination } from '../../types';
 
 type Props = {
-  onPagerClick: () => void,
-  pagination: {
-    total_pages: number,
-    page_number: number,
-  },
+  onPagerClick: (direction: string) => void,
+  pagination: Pagination,
 }
 
 class Pager extends Component {
   props: Props
 
-  handleClick = (direction) => this.props.onPagerClick(direction);
+  handleClick = (direction: string) => this.props.onPagerClick(direction);
 
   render() {
     const { pagination: { total_pages, page_number } } = this.props;

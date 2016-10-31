@@ -7,6 +7,7 @@ import NewRoomForm from '../../components/NewRoomForm';
 import Navbar from '../../components/Navbar';
 import RoomListItem from '../../components/RoomListItem';
 import Pager from '../../components/Pager';
+import { Room, Pagination } from '../../types';
 
 const styles = StyleSheet.create({
   card: {
@@ -16,11 +17,6 @@ const styles = StyleSheet.create({
   },
 });
 
-type Room = {
-  id: number,
-  name: string,
-}
-
 type Props = {
   rooms: Array<Room>,
   currentUserRooms: Array<Room>,
@@ -28,12 +24,7 @@ type Props = {
   createRoom: () => void,
   joinRoom: () => void,
   newRoomErrors: Array<string>,
-  pagination: {
-    total_pages: number,
-    total_entries: number,
-    page_size: number,
-    page_number: number,
-  },
+  pagination: Pagination,
 }
 
 type State = {

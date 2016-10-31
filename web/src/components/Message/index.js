@@ -2,17 +2,10 @@
 import React from 'react';
 import moment from 'moment';
 import Avatar from '../Avatar';
+import { Message as MessageType } from '../../types';
 
 type Props = {
-  message: {
-    text: string,
-    inserted_at: string,
-    day?: string,
-    user: {
-      email: string,
-      username: string,
-    },
-  }
+  message: MessageType,
 }
 
 const Message = ({ message: { text, inserted_at, user } }: Props) =>

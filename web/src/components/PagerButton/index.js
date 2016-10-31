@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 import { css, StyleSheet } from 'aphrodite';
 
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
 type Props = {
   direction: string,
   disabled: boolean,
-  onPagerClick: () => void,
+  onPagerClick: (direction: string) => void,
 }
 
 class PagerButton extends Component {

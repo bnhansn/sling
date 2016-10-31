@@ -12,11 +12,7 @@ import RedirectAuthenticated from '../../components/RedirectAuthenticated';
 import Sidebar from '../../components/Sidebar';
 import Room from '../Room';
 import Alert from '../Alert';
-
-type RoomType = {
-  id: number,
-  name: string,
-}
+import { Room as RoomType } from '../../types';
 
 type Props = {
   authenticate: () => void,

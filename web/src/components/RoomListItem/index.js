@@ -1,11 +1,10 @@
+// @flow
 import React from 'react';
+import { Room } from '../../types';
 
 type Props = {
-  room: {
-    id: number,
-    name: string,
-  },
-  currentUserRoomIds: Array,
+  room: Room,
+  currentUserRoomIds: Array<number>,
   onRoomJoin: () => void,
 }
 

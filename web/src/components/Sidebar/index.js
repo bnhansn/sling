@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { css, StyleSheet } from 'aphrodite';
+import { Room } from '../../types';
 
 const styles = StyleSheet.create({
   sidebar: {
@@ -57,11 +58,6 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
   },
 });
-
-type Room = {
-  id: number,
-  name: string,
-}
 
 type RoomLinkProps = {
   room: Room

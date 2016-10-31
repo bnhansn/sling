@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import { css, StyleSheet } from 'aphrodite';
+import { Room, User } from '../../types';
 
 const styles = StyleSheet.create({
   roomSidebar: {
@@ -51,18 +52,9 @@ const styles = StyleSheet.create({
   },
 });
 
-type User = {
-  id: number,
-  username: string,
-}
-
 type Props = {
-  room: {
-    name: string,
-  },
-  currentUser: {
-    username: string,
-  },
+  room: Room,
+  currentUser: User,
   presentUsers: Array<User>,
 }
 
