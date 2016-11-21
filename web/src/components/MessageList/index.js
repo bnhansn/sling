@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import groupBy from 'lodash/groupBy';
 import mapKeys from 'lodash/mapKeys';
+import includes from 'lodash/includes';
 import { css, StyleSheet } from 'aphrodite';
 import debounce from 'lodash/debounce';
 import Message from '../Message';
@@ -110,7 +111,7 @@ class MessageList extends Component {
           <span className={css(styles.dayText)}>
             {day.date === today && 'Today'}
             {day.date === yesterday && 'Yesterday'}
-            {![today, yesterday].includes(day.date) && day.date}
+            {!includes([today, yesterday], day.date) && day.date}
           </span>
         </div>
         {this.renderMessages(day.messages)}

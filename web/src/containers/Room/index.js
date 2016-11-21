@@ -72,13 +72,13 @@ class Room extends Component {
     const moreMessages = this.props.pagination.total_pages > this.props.pagination.page_number;
 
     return (
-      <div style={{ display: 'flex', height: '100vh' }}>
+      <div style={{ display: 'flex', height: '100vh', flex: '1' }}>
         <RoomSidebar
           room={this.props.room}
           currentUser={this.props.currentUser}
           presentUsers={this.props.presentUsers}
         />
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', flex: '1' }}>
           <RoomNavbar room={this.props.room} onTopicUpdate={this.handleTopicUpdate} />
           <MessageList
             moreMessages={moreMessages}
