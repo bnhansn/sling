@@ -19,7 +19,7 @@ defmodule Sling.Mixfile do
   def application do
     [mod: {Sling, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :comeonin, :scrivener_ecto]]
+                    :phoenix_ecto, :postgrex, :comeonin, :scrivener_ecto, :corsica]]
   end
 
   # Specifies which paths to compile per environment.
@@ -40,7 +40,7 @@ defmodule Sling.Mixfile do
      {:cowboy, "~> 1.0"},
      {:comeonin, "~> 2.5"},
      {:guardian, "~> 0.13.0"},
-     {:cors_plug, "~> 1.1"},
+     {:corsica, "~> 0.5.0"},
      {:scrivener_ecto, "~> 1.0"}]
   end
 

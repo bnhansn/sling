@@ -14,7 +14,6 @@ use Mix.Config
 config :sling, Sling.Endpoint,
   http: [port: {:system, "PORT"}],
   url: [scheme: "https", host: "nameless-reaches-32969.herokuapp.com", port: 443],
-  force_ssl: [rewrite_on: [:x_forwarded_proto]],
   cache_static_manifest: "priv/static/manifest.json",
   secret_key_base: System.get_env("SECRET_KEY_BASE"),
   check_origin: ["http://sling-chat.s3-website-us-west-2.amazonaws.com"]
